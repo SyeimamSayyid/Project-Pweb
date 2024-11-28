@@ -1,0 +1,14 @@
+/* Clock.css */
+.clock {
+    position: fixed;
+    bottom: 20px; /* Jarak dari bawah */
+    right: 20px; /* Jarak dari kanan */
+    font-size: 24px;
+    color: orange; /* Warna oranye untuk teks jam */
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.7); /* Latar belakang semi-transparan */
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  

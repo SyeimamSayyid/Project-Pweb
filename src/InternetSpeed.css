@@ -1,0 +1,23 @@
+.internet-speed {
+    position: fixed;
+    bottom: 20px; 
+    left: 20px; 
+    background-color: black; 
+    color: #e47106; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    font-family: Arial, sans-serif; 
+    font-size: 14px; 
+    max-width: 200px; 
+  }
+  
+  .internet-speed h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .internet-speed p {
+    margin: 5px 0;
+  }
+  
