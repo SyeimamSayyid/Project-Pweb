@@ -27,12 +27,12 @@ const Signup = () => {
 
     try {
       // Mengirim data ke API menggunakan fetch
-      const response = await fetch('http://localhost/Proyek-PW/api/signup.php', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          "Content-Type": "application/json",
         },
-        body: new URLSearchParams({
+        body: JSON.stringify({
           nama_lengkap: data.nama_lengkap,
           email: data.email,
           password: data.password,
@@ -41,7 +41,7 @@ const Signup = () => {
 
       const result = await response.json();
 
-      if (result.status === 'success') {
+      if (result.status === "success") {
         alert(result.message); // Menampilkan pesan sukses dari API
         setLoading(false);
         navigate("/login"); // Arahkan ke halaman login setelah registrasi berhasil

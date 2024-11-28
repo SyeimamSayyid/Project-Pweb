@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import useAnimation from "./useAnimation"; // Custom hook
-import Loader from "./Loader"; // Loader component
+import Loader from "./Loader"; 
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,24 +10,48 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const fakeToken = "fakeToken123456789"; // Fake token untuk simulasi login
-
+  // Fungsi untuk menangani perubahan input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  // Fungsi handleSubmit untuk mengirim data ke API Express.js
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulasi autentikasi
-    setTimeout(() => {
-      // Abaikan validasi email dan password, tetap login
-      localStorage.setItem("token", fakeToken); // Simpan token ke localStorage
+    try {
+      // Kirim data login ke backend Express.js
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        // Jika login berhasil, simpan token atau ID user
+        localStorage.setItem("token", result.token); // Gunakan token dari response jika ada
+        alert(result.message);
+        setLoading(false);
+        navigate("/dashboard"); // Arahkan ke dashboard setelah login berhasil
+      } else {
+        // Jika login gagal, tampilkan pesan error
+        setError(result.message);
+        setLoading(false);
+      }
+    } catch (error) {
+      // Menangani error selama proses request
+      setError("Terjadi kesalahan saat mencoba login. Coba lagi nanti.");
       setLoading(false);
-      navigate("/dashboard"); // Arahkan ke dashboard setelah login
-    }, 1000); // Simulasi API call selama 1 detik
+    }
   };
 
   const leftPanelClass = useAnimation(styles.hiddenLeft, styles.slideInLeft, 500);
